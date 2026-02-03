@@ -28,15 +28,30 @@ const Navbar = () => {
 
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-center space-x-8">
-                            {navLinks.map((link) => (
-                                <a
-                                    key={link.name}
-                                    href={link.href}
-                                    className="text-gray-600 dark:text-gray-300 hover:text-lust-red dark:hover:text-lust-red px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-                                >
-                                    {link.name}
-                                </a>
-                            ))}
+                            {navLinks.map((link) => {
+                                // Handle hash links for scrolling
+                                if (link.href.startsWith('/#')) {
+                                    return (
+                                        <a
+                                            key={link.name}
+                                            href={link.href}
+                                            className="text-gray-600 dark:text-gray-300 hover:text-lust-red dark:hover:text-lust-red px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                                        >
+                                            {link.name}
+                                        </a>
+                                    );
+                                }
+                                // Handle internal routes
+                                return (
+                                    <Link
+                                        key={link.name}
+                                        to={link.href}
+                                        className="text-gray-600 dark:text-gray-300 hover:text-lust-red dark:hover:text-lust-red px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                );
+                            })}
                             <ThemeToggle />
                         </div>
                     </div>
@@ -73,16 +88,30 @@ const Navbar = () => {
                         className="md:hidden bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 overflow-hidden"
                     >
                         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                            {navLinks.map((link) => (
-                                <a
-                                    key={link.name}
-                                    href={link.href}
-                                    className="text-gray-600 dark:text-gray-300 hover:text-lust-red block px-3 py-2 rounded-md text-base font-medium"
-                                    onClick={() => setIsOpen(false)}
-                                >
-                                    {link.name}
-                                </a>
-                            ))}
+                            {navLinks.map((link) => {
+                                if (link.href.startsWith('/#')) {
+                                    return (
+                                        <a
+                                            key={link.name}
+                                            href={link.href}
+                                            className="text-gray-600 dark:text-gray-300 hover:text-lust-red block px-3 py-2 rounded-md text-base font-medium"
+                                            onClick={() => setIsOpen(false)}
+                                        >
+                                            {link.name}
+                                        </a>
+                                    );
+                                }
+                                return (
+                                    <Link
+                                        key={link.name}
+                                        to={link.href}
+                                        className="text-gray-600 dark:text-gray-300 hover:text-lust-red block px-3 py-2 rounded-md text-base font-medium"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                );
+                            })}
                         </div>
                     </motion.div>
                 )}
