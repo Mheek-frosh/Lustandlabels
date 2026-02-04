@@ -13,7 +13,7 @@ const HeroBanner = () => {
             description: "Limited time offers on your favorite items",
             cta: "Shop Now",
             link: "#flash-deals",
-            bgImage: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1920&auto=format&fit=crop",
+            bgImage: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1920&auto=format&fit=crop",
             bgColor: "from-lust-red/95 to-red-800/95"
         },
         {
@@ -23,7 +23,7 @@ const HeroBanner = () => {
             description: "Discover the latest thrifted treasures",
             cta: "Explore",
             link: "#new-arrivals",
-            bgImage: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1920&auto=format&fit=crop",
+            bgImage: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1920&auto=format&fit=crop",
             bgColor: "from-lust-dark/95 to-gray-900/95"
         },
         {
@@ -33,7 +33,7 @@ const HeroBanner = () => {
             description: "Premium gadgets at unbeatable prices",
             cta: "View Collection",
             link: "/shop?category=Electronics",
-            bgImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1920&auto=format&fit=crop",
+            bgImage: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1920&auto=format&fit=crop",
             bgColor: "from-gray-900/95 to-lust-dark/95"
         },
         {
@@ -43,7 +43,7 @@ const HeroBanner = () => {
             description: "Workout gear for your fitness journey",
             cta: "Shop Sports",
             link: "/shop?category=Sports & Outdoors",
-            bgImage: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1920&auto=format&fit=crop",
+            bgImage: "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1920&auto=format&fit=crop",
             bgColor: "from-lust-gold/95 to-yellow-700/95"
         }
     ];
@@ -164,8 +164,8 @@ const HeroBanner = () => {
                         key={index}
                         onClick={() => setCurrentSlide(index)}
                         className={`w-2 h-2 rounded-full transition-all ${index === currentSlide
-                                ? 'bg-white w-8'
-                                : 'bg-white/50 hover:bg-white/75'
+                            ? 'bg-white w-8'
+                            : 'bg-white/50 hover:bg-white/75'
                             }`}
                         aria-label={`Go to slide ${index + 1}`}
                     />
