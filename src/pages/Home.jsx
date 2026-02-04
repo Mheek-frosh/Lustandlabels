@@ -1,41 +1,97 @@
 import React from 'react';
-import Hero from '../components/Hero';
-import ProductCard from '../components/ProductCard';
+import HeroBanner from '../components/HeroBanner';
+import FlashDeals from '../components/FlashDeals';
+import CategoryGrid from '../components/CategoryGrid';
+import ProductSection from '../components/ProductSection';
+import SpecialOfferBanner from '../components/SpecialOfferBanner';
 import { products } from '../data/products';
-import { Link } from 'react-router-dom';
+import {
+    getFeaturedProducts,
+    getProductsByBadge,
+    getTopRatedProducts
+} from '../utils/productUtils';
 
 const Home = () => {
-    const featuredProducts = products.slice(0, 4);
+    // Get different product sets
+    const featuredProducts = getFeaturedProducts(products, 8);
+    const trendingProducts = getProductsByBadge(products, 'Hot').slice(0, 8);
+    const newArrivals = getProductsByBadge(products, 'New').slice(0, 8);
+    const topRated = getTopRatedProducts(products, 8);
 
     return (
         <>
+            {/* Hero Banner */}
             <div id="home">
-                <Hero />
+                <HeroBanner />
             </div>
 
-            <section id="shop" className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl font-heading font-bold mb-4 text-lust-dark dark:text-white transition-colors">Latest Drops</h2>
-                        <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto transition-colors">
-                            Freshly curated thrifted finds. Unique, sustainable, and ready to make a statement.
-                        </p>
-                    </div>
+            {/* Flash Deals Section */}
+            <div id="flash-deals">
+                <FlashDeals />
+            </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {featuredProducts.map((product) => (
-                            <ProductCard key={product.id} product={product} />
-                        ))}
-                    </div>
+            {/* Category Navigation */}
+            <CategoryGrid />
 
-                    <div className="mt-12 text-center">
-                        <Link to="/shop" className="inline-block border-b-2 border-lust-dark dark:border-white pb-1 text-lust-dark dark:text-white font-semibold hover:text-lust-red hover:border-lust-red dark:hover:text-lust-red dark:hover:border-lust-red transition-all">
-                            View All Products
-                        </Link>
-                    </div>
-                </div>
-            </section>
+            {/* Featured Products */}
+            <ProductSection
+                title="Featured Products"
+                description="Handpicked favorites with the best ratings and reviews"
+                products={featuredProducts}
+                viewAllLink="/shop"
+                bgColor="bg-gray-50 dark:bg-gray-950"
+            />
 
+            {/* First Special Offer Banner */}
+            <SpecialOfferBanner
+                title="Student Discount"
+                subtitle="Get 15% off with your student ID"
+                ctaText="Claim Offer"
+                ctaLink="/shop"
+                variant="gradient"
+            />
+
+            {/* Trending Now */}
+            <div id="trending">
+                <ProductSection
+                    title="Trending Now"
+                    description="What's hot right now - most popular items flying off the shelves"
+                    products={trendingProducts}
+                    viewAllLink="/shop"
+                    bgColor="bg-white dark:bg-gray-900"
+                />
+            </div>
+
+            {/* New Arrivals */}
+            <div id="new-arrivals">
+                <ProductSection
+                    title="New Arrivals"
+                    description="Fresh finds just added to our collection"
+                    products={newArrivals}
+                    viewAllLink="/shop"
+                    bgColor="bg-gray-50 dark:bg-gray-950"
+                />
+            </div>
+
+            {/* Second Special Offer Banner */}
+            <SpecialOfferBanner
+                title="Free Shipping"
+                subtitle="On orders over ₦50,000"
+                ctaText="Start Shopping"
+                ctaLink="/shop"
+                variant="solid"
+            />
+
+            {/* Top Rated */}
+            <ProductSection
+                title="Top Rated"
+                description="Highly rated by our community - products you can trust"
+                products={topRated}
+                viewAllLink="/shop"
+                bgColor="bg-white dark:bg-gray-900"
+            />
+
+            {/* Vision Section */}
             <section id="vision" className="py-24 bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
                 <div className="max-w-7xl mx-auto px-4 text-center">
                     <h2 className="text-3xl md:text-4xl font-heading font-bold mb-8 text-lust-dark dark:text-white transition-colors">Our Vision</h2>
@@ -59,6 +115,7 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* Newsletter Section */}
             <section id="contact" className="py-20 bg-lust-dark text-white">
                 <div className="max-w-4xl mx-auto px-4 text-center">
                     <h2 className="text-3xl font-heading font-bold mb-6">Stay in the Loop</h2>
@@ -80,3 +137,4 @@ const Home = () => {
 };
 
 export default Home;
+
