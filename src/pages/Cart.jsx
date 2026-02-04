@@ -117,13 +117,16 @@ const Cart = () => {
                                 </div>
                             </div>
 
-                            <button className="w-full bg-lust-dark dark:bg-white text-white dark:text-lust-dark py-4 rounded-full font-bold uppercase tracking-wider hover:opacity-90 transition-opacity flex items-center justify-center gap-2 group">
+                            <Link
+                                to="/checkout"
+                                className="w-full bg-lust-dark dark:bg-white text-white dark:text-lust-dark py-4 rounded-full font-bold uppercase tracking-wider hover:opacity-90 transition-opacity flex items-center justify-center gap-2 group"
+                            >
                                 Proceed to Checkout
                                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                            </button>
+                            </Link>
 
                             <p className="mt-6 text-xs text-center text-gray-400">
-                                Secure checkout powered by Paystack.
+                                Pay via bank transfer and confirm on WhatsApp
                             </p>
                         </div>
                     </div>
