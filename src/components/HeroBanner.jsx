@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 const HeroBanner = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -14,8 +13,8 @@ const HeroBanner = () => {
             description: "Limited time offers on your favorite items",
             cta: "Shop Now",
             link: "#flash-deals",
-            bgImage: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop",
-            bgColor: "from-lust-red/90 to-red-800/90"
+            bgImage: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1920&auto=format&fit=crop",
+            bgColor: "from-lust-red/95 to-red-800/95"
         },
         {
             id: 2,
@@ -24,28 +23,28 @@ const HeroBanner = () => {
             description: "Discover the latest thrifted treasures",
             cta: "Explore",
             link: "#new-arrivals",
-            bgImage: "https://images.unsplash.com/photo-1558769132-cb1aea3267e2?q=80&w=2074&auto=format&fit=crop",
-            bgColor: "from-lust-dark/90 to-gray-900/90"
+            bgImage: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1920&auto=format&fit=crop",
+            bgColor: "from-lust-dark/95 to-gray-900/95"
         },
         {
             id: 3,
-            title: "Electronics",
-            subtitle: "Tech Deals",
+            title: "Tech Deals",
+            subtitle: "Electronics",
             description: "Premium gadgets at unbeatable prices",
             cta: "View Collection",
             link: "/shop?category=Electronics",
-            bgImage: "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?q=80&w=2021&auto=format&fit=crop",
-            bgColor: "from-gray-900/90 to-lust-dark/90"
+            bgImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1920&auto=format&fit=crop",
+            bgColor: "from-gray-900/95 to-lust-dark/95"
         },
         {
             id: 4,
-            title: "Sports & Fitness",
-            subtitle: "Get Active",
+            title: "Get Active",
+            subtitle: "Sports & Fitness",
             description: "Workout gear for your fitness journey",
             cta: "Shop Sports",
             link: "/shop?category=Sports & Outdoors",
-            bgImage: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop",
-            bgColor: "from-lust-gold/90 to-yellow-700/90"
+            bgImage: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1920&auto=format&fit=crop",
+            bgColor: "from-lust-gold/95 to-yellow-700/95"
         }
     ];
 
@@ -76,22 +75,30 @@ const HeroBanner = () => {
                     transition={{ duration: 0.5 }}
                     className="absolute inset-0"
                 >
-                    {/* Background Image */}
-                    <div
-                        className="absolute inset-0 bg-cover bg-center"
-                        style={{ backgroundImage: `url(${slides[currentSlide].bgImage})` }}
-                    />
+                    {/* Background with Gradient Overlay */}
+                    <div className="absolute inset-0">
+                        {/* Base gradient background */}
+                        <div className={`absolute inset-0 bg-gradient-to-r ${slides[currentSlide].bgColor}`} />
 
-                    {/* Overlay Gradient */}
-                    <div className={`absolute inset-0 bg-gradient-to-r ${slides[currentSlide].bgColor}`} />
+                        {/* Image positioned on the right side with diagonal clip */}
+                        <div className="absolute inset-y-0 right-0 w-1/2 md:w-2/5">
+                            <div
+                                className="h-full bg-cover bg-center"
+                                style={{
+                                    backgroundImage: `url(${slides[currentSlide].bgImage})`,
+                                    clipPath: 'polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%)'
+                                }}
+                            />
+                        </div>
+                    </div>
 
-                    {/* Content */}
+                    {/* Content - Left Side */}
                     <div className="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
                         <motion.div
-                            initial={{ y: 20, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
+                            initial={{ x: -50, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
                             transition={{ delay: 0.2, duration: 0.6 }}
-                            className="max-w-2xl"
+                            className="max-w-xl"
                         >
                             <motion.p
                                 initial={{ y: 20, opacity: 0 }}
@@ -105,7 +112,7 @@ const HeroBanner = () => {
                                 initial={{ y: 20, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 transition={{ delay: 0.4, duration: 0.6 }}
-                                className="text-5xl md:text-6xl font-heading font-bold text-white mb-4"
+                                className="text-5xl md:text-6xl font-heading font-bold text-white mb-4 leading-tight"
                             >
                                 {slides[currentSlide].title}
                             </motion.h1>
@@ -113,7 +120,7 @@ const HeroBanner = () => {
                                 initial={{ y: 20, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 transition={{ delay: 0.5, duration: 0.6 }}
-                                className="text-xl text-gray-200 mb-8"
+                                className="text-xl text-gray-100 mb-8 max-w-md"
                             >
                                 {slides[currentSlide].description}
                             </motion.p>
@@ -157,8 +164,8 @@ const HeroBanner = () => {
                         key={index}
                         onClick={() => setCurrentSlide(index)}
                         className={`w-2 h-2 rounded-full transition-all ${index === currentSlide
-                            ? 'bg-white w-8'
-                            : 'bg-white/50 hover:bg-white/75'
+                                ? 'bg-white w-8'
+                                : 'bg-white/50 hover:bg-white/75'
                             }`}
                         aria-label={`Go to slide ${index + 1}`}
                     />
