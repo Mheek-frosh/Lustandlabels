@@ -58,32 +58,32 @@ const Checkout = () => {
         // Construct detailed message
         let itemsList = items.map(item =>
             `*${item.title}*
-Weight/Size: ${item.size || 'N/A'}
-Qty: ${item.quantity}
+Qty: ${item.quantity} | Size: ${item.size || 'N/A'}
 Price: ₦${(item.price * item.quantity).toLocaleString()}
-Image: ${item.originalImage || item.image}`
-        ).join('\n\n------------------\n\n');
+${item.originalImage || item.image}`
+        ).join('\n\n');
 
-        const message = `*NEW ORDER REQUEST* 🛒
+        const message = `*ORDER INQUIRY* 🛒
        
-Please I want to make payment for these items:
+I am interested in these items:
 
 ${itemsList}
 
-*Subtotal:* ₦${(totalPrice || 0).toLocaleString()}
-*Shipping:* ₦${shippingFee.toLocaleString()}
-*TOTAL:* ₦${grandTotal.toLocaleString()}
+*Total Amount:* ₦${grandTotal.toLocaleString()} (w/ shipping)
 
 ------------------
 
+*Question:* 
+Is this order available? Should I proceed to pay *₦${grandTotal.toLocaleString()}* to *${bankDetails.bankName} - ${bankDetails.accountNumber}*?
+
 *Reference:* #${Math.floor(Math.random() * 100000)}
-*Status:* Payment Sent ✅`;
+*Status:* Awaiting your confirmation ⏳`;
 
         // 1. Open WhatsApp
         const encodedMessage = encodeURIComponent(message);
         window.open(`https://wa.me/${bankDetails.whatsappNumber}?text=${encodedMessage}`, '_blank');
 
-        // 2. Redirect / Reset (per user request: just take to WhatsApp)
+        // 2. Redirect Home (No success screen)
         // We'll reset the cart and navigate home to avoid "hanging" state
         if (clearCart) clearCart();
         navigate('/');
