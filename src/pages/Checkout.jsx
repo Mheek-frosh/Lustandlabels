@@ -19,8 +19,8 @@ const Checkout = () => {
     // Bank account details 
     const bankDetails = {
         bankName: "OPAY",
-        accountName: "DANIEL DUNG",
-        accountNumber: "9032239458",
+        accountName: "Michael Usidamen",
+        accountNumber: "9034448700",
         whatsappNumber: "2347054885172"
     };
 
@@ -64,17 +64,19 @@ ${item.originalImage || item.image}`
         ).join('\n\n');
 
         const message = `*ORDER INQUIRY* 🛒
-       
+        
 I am interested in these items:
 
 ${itemsList}
 
-*Total Amount:* ₦${grandTotal.toLocaleString()} (w/ shipping)
+*Subtotal:* ₦${(totalPrice || 0).toLocaleString()}
+*Shipping Fee:* ₦${shippingFee.toLocaleString()}
+*Grand Total:* ₦${grandTotal.toLocaleString()}
 
 ------------------
 
 *Question:* 
-Is this order available? Should I proceed to pay *₦${grandTotal.toLocaleString()}* to *${bankDetails.bankName} - ${bankDetails.accountNumber}*?
+Is this order available? Should I proceed to pay *₦${grandTotal.toLocaleString()}* to *${bankDetails.bankName} - ${bankDetails.accountNumber} (${bankDetails.accountName})*?
 
 *Reference:* #${Math.floor(Math.random() * 100000)}
 *Status:* Awaiting your confirmation ⏳`;
