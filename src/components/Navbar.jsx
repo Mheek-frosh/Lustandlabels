@@ -68,6 +68,14 @@ const Navbar = () => {
                     </div>
 
                     <div className="md:hidden flex items-center gap-4">
+                        <Link to="/cart" className="text-gray-600 dark:text-gray-300 hover:text-lust-red transition-colors relative">
+                            <ShoppingBag size={24} />
+                            {totalItems > 0 && (
+                                <span className="absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-lust-red rounded-full">
+                                    {totalItems}
+                                </span>
+                            )}
+                        </Link>
                         <ThemeToggle />
                         <button
                             onClick={() => setIsOpen(!isOpen)}
