@@ -12,7 +12,7 @@ const Checkout = () => {
     // Fallback if cartItems is undefined (shouldn't happen if Context is correct, but safe)
     const items = cartItems || [];
 
-    const [step, setStep] = useState('review'); // 'review', 'payment', 'success'
+    const [step, setStep] = useState('review'); // 'review' or 'payment'
     const [countdown, setCountdown] = useState(60);
     const [copied, setCopied] = useState(false);
 
@@ -61,11 +61,11 @@ const Checkout = () => {
 Weight/Size: ${item.size || 'N/A'}
 Qty: ${item.quantity}
 Price: ₦${(item.price * item.quantity).toLocaleString()}
-Image: ${item.image}`
+Image: ${item.originalImage || item.image}`
         ).join('\n\n------------------\n\n');
 
         const message = `*NEW ORDER REQUEST* 🛒
-        
+       
 Please I want to make payment for these items:
 
 ${itemsList}
@@ -83,12 +83,13 @@ ${itemsList}
         const encodedMessage = encodeURIComponent(message);
         window.open(`https://wa.me/${bankDetails.whatsappNumber}?text=${encodedMessage}`, '_blank');
 
-        // 2. Show Success Screen
-        setStep('success');
+        // 2. Redirect / Reset (per user request: just take to WhatsApp)
+        // We'll reset the cart and navigate home to avoid "hanging" state
         if (clearCart) clearCart();
+        navigate('/');
     };
 
-    if (items.length === 0 && step !== 'success') {
+    if (items.length === 0) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 pt-20">
                 <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 max-w-md mx-4">
@@ -104,47 +105,6 @@ ${itemsList}
                         Start Shopping
                     </button>
                 </div>
-            </div>
-        );
-    }
-
-    // SUCCESS SCREEN
-    if (step === 'success') {
-        return (
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center p-4">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl w-full max-w-md overflow-hidden border border-green-100 dark:border-green-900/30"
-                >
-                    <div className="bg-green-500 p-8 text-center">
-                        <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                            <Check size={40} className="text-green-500 stroke-[3]" />
-                        </div>
-                        <h1 className="text-3xl font-heading font-bold text-white mb-2">Payment Made!</h1>
-                        <p className="text-green-100 font-medium">Your transfer has been recorded.</p>
-                    </div>
-
-                    <div className="p-8">
-                        <div className="space-y-4 text-center">
-                            <p className="text-gray-600 dark:text-gray-300">
-                                We have opened WhatsApp for you to confirm the details with our team. Please tap "Send" in WhatsApp.
-                            </p>
-
-                            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg text-sm text-gray-500 dark:text-gray-400">
-                                Once confirmed, your order will be processed immediately.
-                            </div>
-
-                            <button
-                                onClick={() => navigate('/')}
-                                className="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 py-4 rounded-full font-bold uppercase tracking-wider hover:opacity-90 transition-opacity flex items-center justify-center gap-2 mt-6"
-                            >
-                                <Home size={20} />
-                                Return to Home
-                            </button>
-                        </div>
-                    </div>
-                </motion.div>
             </div>
         );
     }
@@ -307,7 +267,7 @@ ${itemsList}
                                         className="w-full bg-green-600 text-white py-4 rounded-full font-bold uppercase tracking-wider hover:bg-green-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-green-600/20 disabled:bg-gray-400 disabled:shadow-none"
                                     >
                                         <MessageCircle size={20} />
-                                        I Have Made Payment
+                                        Continue to pay on WhatsApp
                                     </button>
 
                                     <button
